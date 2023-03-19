@@ -10,6 +10,7 @@ contract Voting {
     uint yesVotes;
     uint noVotes;
     address[] voters;
+    string status;
   }
   mapping (uint => Proposal) public proposals;
   uint256 public proposalsId;
@@ -21,6 +22,7 @@ contract Voting {
   function addVoter(address voter) public onlyOwner{
     voters.push(voter);
   }
+
   function checkVoters(address add) internal view returns (bool){
     for(uint i =0; i<voters.length; i++){
       if(add==voters[i])
@@ -28,6 +30,7 @@ contract Voting {
     }
     return false;
   }
+
   function checkIfAlreadyVoted(uint256 id, address voter) internal view returns (bool){
     for(uint i =0; i<proposals[id].voters.length; i++){
       if(voter==proposals[id].voters[i])
@@ -35,18 +38,22 @@ contract Voting {
     }
     return false;
   }
-  function makeProposal(string memory message) public {
+
+  function submitProposal(string memory message) public {
     if(checkVoters(msg.sender)){
       proposals[proposalsId].owner = msg.sender;
       proposals[proposalsId].message = message;
+      proposals[proposalsId].status = 'open';
       proposalsId++;
     }
   }
+
   function compareStrings(string memory a, string memory b) public pure returns (bool) {
     return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
 }
+
   function vote(uint256 id, string memory message) public{
-    if(checkVoters(msg.sender) && !checkIfAlreadyVoted(id, msg.sender)){
+    if(checkVoters(msg.sender) && !checkIfAlreadyVoted(id, msg.sender) && compareStrings(proposals[id].status, "open")){
       if(compareStrings(message, "yes")){
         proposals[id].yesVotes++;
         proposals[id].voters.push(msg.sender);
@@ -57,6 +64,11 @@ contract Voting {
       }
     }
   }
+
+  function closeProposal(uint256 id) public onlyOwner{
+    proposals[id].status = 'closed';
+  }
+
   modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
         _;
