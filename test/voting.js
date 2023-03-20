@@ -32,6 +32,18 @@ contract("Voting", (accounts) => {
     assert.equal(accounts[2], voter, 'the second voter should be address at accounts[2]')
   })
 
+  it('ensures unique voters can be added in the array', async ()=>{
+    try{
+      await voting.addVoter(accounts[2])
+    }catch(error){
+      console.log(error)
+      assert(error, 'Expected error' + error.message);
+    }
+    
+  //  let voter = await voting.voters(2)
+   //    assert.equal(0, voter, 'the third voter shouldnt exist')
+  })
+
   it('voter can submit a proposal', async ()=>{
     await voting.submitProposal("Test Proposal 1", {from: accounts[1]})
     let receivedMessage = (await voting.proposals(0)).message

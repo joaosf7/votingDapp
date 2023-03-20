@@ -4,6 +4,7 @@ pragma solidity ^0.8.19;
 contract Voting {
   address public owner;
   address[] public voters;
+  uint public numberOfVoters;
   struct Proposal{
     address owner;
     string message;
@@ -20,7 +21,12 @@ contract Voting {
   }
 
   function addVoter(address voter) public onlyOwner{
-    voters.push(voter);
+    uint i;
+    for(i=0; i<numberOfVoters && voters[i]!=voter; ++i){}
+    if(i==numberOfVoters){
+        voters.push(voter);
+        numberOfVoters++;
+    }
   }
 
   function checkVoters(address add) internal view returns (bool){

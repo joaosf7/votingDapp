@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-function AddVoter({addVoterCallback}) {
+function AddVoter({addVoterCallback, updatedVoters}) {
     const [address, setAddress] = useState("")
+    const [voters, setVoters] = useState("")
 
     return (
       <div className="container">
@@ -15,7 +16,7 @@ function AddVoter({addVoterCallback}) {
             <tbody>
                 <tr>
                 <th scope="row">1</th>
-                <td>0x5D448002B2160aa0A7f59B6292aAC11424F7aDA8</td>
+                <td>{voters[0]}</td>
                 </tr>
                 <tr>
                 <th scope="row">2</th>
