@@ -1,42 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function AddVoter({addVoterCallback, updatedVoters}) {
+function AddVoter({addVoterCallback, votersFromApp}) {
     const [address, setAddress] = useState("")
-    const [voters, setVoters] = useState("")
+    const [voters, setVoters] = useState([])
+    
+    useEffect(()=>{
+        setVoters(votersFromApp)
+        console.log('votersFromApp: ', votersFromApp)
+        console.log('voters: ', voters)
+    })
 
+    const showVoter = (voter)=>{
+        return(
+            <tr>
+                <td>{voter}</td>
+            </tr>
+        )
+    }
     return (
       <div className="container">
         <table className="table table-striped table-dark">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">List of voters</th>
+                <th scope="col">List of voter addresses</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>{voters[0]}</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>0x5D448002B2160aa0A7f59B6292aAC11424F7aDA8</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td>0x5D448002B2160aa0A7f59B6292aAC11424F7aDA8</td>
-                </tr>
-            </tbody>
+            <tbody>{voters.map(showVoter)}</tbody>
         </table>
         <div className="row row-dark">
             <div className="col"></div>
-                <input value ={address} onChange={(e) => setAddress(e.target.value)}/>
+                <input className="input-dark" value ={address} onChange={(e) => setAddress(e.target.value)}/>
                 <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-dark"
                     onClick={()=>addVoterCallback(address)}
                 >
-                    Add Voter
+                    Add a voter
                 </button>
             </div>
             <div className="col">
