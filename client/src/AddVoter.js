@@ -29,7 +29,7 @@ function AddVoter({addVoterCallback, votersFromApp}) {
         </table>
         <div className="row row-dark">
             <div className="col"></div>
-                <input className="input-dark" value ={address} onChange={(e) => setAddress(e.target.value)}/>
+                <input className="bg-secondary text-light" value ={address} onChange={(e) => setAddress(e.target.value)}/>
                 <button
                     type="button"
                     className="btn btn-primary btn-dark"

@@ -19,8 +19,9 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
         return(
             <div className="row container">
                 <div className={bgStyle}>
-                    <div className="card-header">Proposal ID: {proposal.proposalId} {proposal.status}</div>
-                    <div className="card-body"  rows='4'>
+                    <div className="card-header">Proposal ID: {proposal.proposalId}</div>
+                    <div className="card-header">Status: {proposal.status}</div>
+                    <div className="card-body">
                         <h5 className="card-title">{proposal.message}</h5>
                         <div className="row">
                             <div className="col">
