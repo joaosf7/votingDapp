@@ -11,6 +11,7 @@ function App() {
 
   const [voters, setVoters] = useState([])
   const [proposals, setProposals] = useState([])
+  const [proposalIdToClose, setProposalIdToClose] = useState()
 
   useEffect(() => {
     getVotersFromContract()
@@ -109,6 +110,16 @@ function App() {
     }
   }
 
+  const closeProposal = async (proposalIdToClose) => {
+    try{
+      await voting.methods.closeProposal(proposalIdToClose).send({from: web3.currentProvider.selectedAddress})
+      getProposalsFromContract()
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+
   return (
     <div className="container bg-dark bg-gradient text-light">
       <div className="row text-center">
@@ -129,7 +140,14 @@ function App() {
             <AddVoter addVoterCallback={addVoter} votersFromApp={voters}/>
           </div>
           <div className="col">
-            TODO: Component to end a proposal
+          <input className="input-dark" value ={proposalIdToClose} onChange={(e) => setProposalIdToClose(e.target.value)}/>
+                <button
+                    type="button"
+                    className="btn btn-primary btn-dark"
+                    onClick={()=>closeProposal(proposalIdToClose)}
+                >
+                    Close the proposal
+                </button>
           </div>
         </div>
       </div>

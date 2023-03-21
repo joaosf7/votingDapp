@@ -9,10 +9,17 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
     },[proposalsFromApp])
 
     const showProposal = (proposal)=>{
+        let bgStyle
+        if(proposal.status == 'open')
+            bgStyle = 'card text-white bg-dark mb-3 max-width: 18rem'
+        else if(proposal.yesVotes >= proposal.noVotes)
+            bgStyle = 'card text-white bg-success mb-3 max-width: 18rem'
+        else
+            bgStyle = 'card text-white bg-danger mb-3 max-width: 18rem'
         return(
             <div className="row container">
-                <div className="card text-white bg-dark mb-3 max-width: 18rem;">
-                    <div className="card-header">Proposal ID: {proposal.proposalId}</div>
+                <div className={bgStyle}>
+                    <div className="card-header">Proposal ID: {proposal.proposalId} {proposal.status}</div>
                     <div className="card-body">
                         <h5 className="card-title">{proposal.message}</h5>
                         <div className="row">
