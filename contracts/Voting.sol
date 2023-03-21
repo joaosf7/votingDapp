@@ -12,6 +12,7 @@ contract Voting {
     uint noVotes;
     address[] voters;
     string status;
+    uint proposalId;
   }
   mapping (uint => Proposal) public proposals;
   uint256 public proposalsId;
@@ -51,6 +52,7 @@ contract Voting {
       proposals[proposalsId].message = message;
       proposals[proposalsId].status = 'open';
       proposalsId++;
+      proposals[proposalsId].proposalId = proposalsId;
     }
   }
 

@@ -39,9 +39,6 @@ contract("Voting", (accounts) => {
       console.log(error)
       assert(error, 'Expected error' + error.message);
     }
-    
-  //  let voter = await voting.voters(2)
-   //    assert.equal(0, voter, 'the third voter shouldnt exist')
   })
 
   it('voter can submit a proposal', async ()=>{
@@ -62,6 +59,11 @@ contract("Voting", (accounts) => {
       receivedMessage,
       'The received message should be: Test Proposal 2'
     )
+  })
+
+  it('ensures IDs of proposals are being recorded correctly', async ()=>{
+    let proposalId1 = (await voting.proposals(1)).proposalId
+    assert.equal(1, proposalId1, 'The received Id should be: 1')
   })
 
   it('only allows a voter to submit a proposal', async ()=>{
