@@ -11,7 +11,6 @@ function App() {
 
   const [voters, setVoters] = useState([])
   const [proposals, setProposals] = useState([])
-  const [count, setCount] =useState(1)
 
   useEffect(() => {
     getVotersFromContract()
@@ -93,23 +92,21 @@ function App() {
   const voteYes = async (proposalId) =>{
     try{
       await voting.methods.vote(proposalId, 'yes').send({from: web3.currentProvider.selectedAddress})
-      
+      getProposalsFromContract()
     }
     catch(e){
       console.log(e)
     }
-    setCount(count+1)
   }
 
   const voteNo = async (proposalId) =>{
     try{
       await voting.methods.vote(proposalId, 'no').send({from: web3.currentProvider.selectedAddress})
-      
+      getProposalsFromContract()
     }
     catch(e){
       console.log(e)
     }
-    setCount(count+1)
   }
 
   return (
@@ -119,7 +116,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col">
-          <DisplayProposals voteYesCallback={voteYes} voteNoCallback={voteNo} proposalsFromApp={proposals} numVotesFromApp={count}/>
+          <DisplayProposals voteYesCallback={voteYes} voteNoCallback={voteNo} proposalsFromApp={proposals}/>
         </div>
         <div className="col">
           <AddProposal addProposalCallback={addProposal}/>
