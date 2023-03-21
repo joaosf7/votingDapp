@@ -123,7 +123,7 @@ function App() {
   return (
     <div className="container bg-dark bg-gradient text-light">
       <div className="row text-center">
-        <h1>Client frontend</h1>
+        <h1 className='text-warning'>VotingDapp</h1>
       </div>
       <div className="row">
         <div className="col">
@@ -134,20 +134,24 @@ function App() {
         </div>
       </div>
       <div className="row text-center">
-        <h1>Frontend for owner of contract</h1>
+        <h1 className='text-info'>Frontend for owner of contract</h1>
         <div className="row">
           <div className="col">
             <AddVoter addVoterCallback={addVoter} votersFromApp={voters}/>
           </div>
-          <div className="col">
-          <input className="input-dark" value ={proposalIdToClose} onChange={(e) => setProposalIdToClose(e.target.value)}/>
-                <button
-                    type="button"
-                    className="btn btn-primary btn-dark"
-                    onClick={()=>closeProposal(proposalIdToClose)}
-                >
-                    Close the proposal
-                </button>
+          <div className="col container">
+            <div className='row'>
+              <input className="bg-secondary text-light" value ={proposalIdToClose} onChange={(e) => setProposalIdToClose(e.target.value)}/>
+            </div>
+            <div className='row'>
+              <button
+                  type="button"
+                  className="btn btn-primary btn-dark"
+                  onClick={()=>closeProposal(proposalIdToClose)}
+              >
+                  Close the proposal
+              </button>
+            </div>
           </div>
         </div>
       </div>
