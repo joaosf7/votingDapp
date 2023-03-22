@@ -9,24 +9,31 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
     },[proposalsFromApp])
 
     const showProposal = (proposal)=>{
-        let bgStyle
-        if(proposal.status == 'open')
-            bgStyle = 'card text-white bg-dark mb-3 max-width: 18rem'
+        let closedStyle
+        if(proposal.status == 'open'){
+            closedStyle = 'card-header'
+            console.log("ESTOU AQUI")
+        }
         else if(proposal.yesVotes >= proposal.noVotes)
-            bgStyle = 'card text-white bg-success mb-3 max-width: 18rem'
+            closedStyle = 'card-header bg-success text-light'
         else
-            bgStyle = 'card text-white bg-danger mb-3 max-width: 18rem'
+            closedStyle = 'card-header bg-danger text-light'
         return(
             <div className="row container">
-                <div className={bgStyle}>
-                    <div className="card-header">Proposal ID: {proposal.proposalId}</div>
-                    <div className="card-header">Status: {proposal.status}</div>
+                <div className='card bg-dark text-secondary mb-3 max-width: 18rem'>
+                    <div className={closedStyle}>Proposal ID: {proposal.proposalId}</div>
+                    <div className='card-header text-bold text-light'>Status: {proposal.status}</div>
                     <div className="card-body">
-                        <h5 className="card-title">{proposal.message}</h5>
-                        <div className="row">
+                        <h5 className="card-title text-light">{proposal.message}</h5>
+                        <div className="row text-light">
                             <div className="col">
-                                <p className="card-text">Yes: {proposal.yesVotes}</p>
+                                <p className="card-text text-center">Yes: {proposal.yesVotes}</p>
                             </div>
+                            <div className="col">
+                                <p className="card-text text-center">No:   {proposal.noVotes}</p>
+                            </div>
+                        </div>
+                        <div className="row text-light text-center">
                             <div className="col">
                                 <button
                                     type="button"
@@ -34,11 +41,6 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
                                     onClick={()=>voteYesCallback(proposal.proposalId)}>
                                         Aprove this proposal
                                 </button>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <p className="card-text">No:   {proposal.noVotes}</p>
                             </div>
                             <div className="col">
                                 <button

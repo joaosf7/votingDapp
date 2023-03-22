@@ -102,7 +102,8 @@ function App() {
 
   const voteNo = async (proposalId) =>{
     try{
-      await voting.methods.vote(proposalId, 'no').send({from: web3.currentProvider.selectedAddress})
+      if(proposals[proposalId].status != 'closed')
+        await voting.methods.vote(proposalId, 'no').send({from: web3.currentProvider.selectedAddress})
       getProposalsFromContract()
     }
     catch(e){
@@ -121,9 +122,14 @@ function App() {
   }
 
   return (
-    <div className="container bg-dark bg-gradient text-light">
-      <div className="row text-center">
-        <h1 className='text-warning'>VotingDapp</h1>
+    <div className="container-fluid bg-dark bg-gradient text-light" data-bs-theme="dark" height='150'>
+      <div className="row text-center align-items-center">
+        <div className='col-auto'>
+          <img src="./logo.png" className="rounded float-left" height='50' width='50' alt="..." />
+        </div>
+        <div className='col'>
+          <h1 className='font-weight-bold mb-0'>VotingDapp</h1>
+        </div>
       </div>
       <div className="row">
         <div className="col">
@@ -140,18 +146,28 @@ function App() {
             <AddVoter addVoterCallback={addVoter} votersFromApp={voters}/>
           </div>
           <div className="col container">
-            <div className='row'>
-              <input className="bg-secondary text-light" value ={proposalIdToClose} onChange={(e) => setProposalIdToClose(e.target.value)}/>
-            </div>
-            <div className='row'>
+            <form>
+                <div class="form-group">
+                  <label for="inputProposalToClose">Proposal to close</label>
+                  <input type="input"
+                    className="form-control"
+                    id="inputProposalToClose"
+                    placeholder="Enter ID of the proposal you want to close"
+                    onChange={(e) => setProposalIdToClose(e.target.value)}
+                    onClick={(e) => (e.target.value='')}
+                  />
+              </div>
+              <div class="form-check">
+                <input type="checkbox" className="form-check-input bg-secondary text-light" id="exampleCheck1"/>
+                <label class="form-check-label" for="exampleCheck1">I'm sure I will close this proposal</label>
+              </div>
               <button
-                  type="button"
-                  className="btn btn-primary btn-dark"
-                  onClick={()=>closeProposal(proposalIdToClose)}
-              >
-                  Close the proposal
+                type="submit"
+                className="btn btn-primary"
+                onClick={()=>closeProposal(proposalIdToClose)}>
+                  Submit
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

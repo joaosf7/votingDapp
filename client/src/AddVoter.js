@@ -29,14 +29,18 @@ function AddVoter({addVoterCallback, votersFromApp}) {
         </table>
         <div className="row row-dark">
             <div className="col"></div>
-                <input className="bg-secondary text-light" value ={address} onChange={(e) => setAddress(e.target.value)}/>
-                <button
-                    type="button"
-                    className="btn btn-primary btn-dark"
-                    onClick={()=>addVoterCallback(address)}
-                >
-                    Add a voter
-                </button>
+                <input className="bg-secondary text-light" value ={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    onClick={(e) => (e.target.value='')}/>
+                <div className='col text-center'>
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={()=>addVoterCallback(address)}
+                    >
+                        Add a voter
+                    </button>
+                </div>
             </div>
             <div className="col">
                 

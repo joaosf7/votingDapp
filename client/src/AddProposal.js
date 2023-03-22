@@ -12,7 +12,7 @@ function AddProposal({addProposalCallback}){
             </div>
             <div className="row">
             <textarea
-                className="form-control bg-secondary text-light"
+                className="form-control border border-dark  bg-secondary text-light"
                 id="TextArea"
                 rows="8"
                 onClick={()=>(document.getElementById('TextArea').value='')}
@@ -22,13 +22,15 @@ function AddProposal({addProposalCallback}){
             </textarea>
             </div>
             <div className="row">
-                <button
-                    type="button"
-                    className="btn btn-primary btn-dark"
-                    onClick={()=>addProposalCallback(message)}
-                >
-                    Submit a proposal
-                </button>
+                <div className="col text-center">
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={()=>addProposalCallback(message)}
+                    >
+                        Submit a proposal
+                    </button>
+                </div>
             </div>
         </div>
     )
