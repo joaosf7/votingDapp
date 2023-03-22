@@ -126,7 +126,7 @@ function App() {
                   <div className="col-4 container">
                     <form>
                         <div className="form-group">
-                          <label className='text-bold' for="inputProposalToClose">Proposal to close</label>
+                          <label className='text-bold' htmlFor="inputProposalToClose">Proposal to close</label>
                           <input type="input"
                             className="form-control text-light bg-dark "
                             id="inputProposalToClose"

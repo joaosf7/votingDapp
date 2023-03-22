@@ -1,15 +1,13 @@
 import Web3 from 'web3'
 
-let web3 = new Web3(window.ethereum);
+let web3
 
 if (window.ethereum) {
+    web3 = new Web3(window.ethereum)
    try {
-       console.log('entrou')
-       let web3Provider = new Web3(window.ethereum)
-       web3 = new Web3(web3Provider)
-       window.ethereum.enable().then(function() {
-          // User has allowed account access to DApp...
-      });
+       console.log('Detected window.ethereum')
+       // Request account access
+        window.ethereum.request({ method: 'eth_requestAccounts'})
    } catch(e) {
       // User has denied account access to DApp...
       // alert('Cant use window.ethereum !');

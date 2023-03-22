@@ -2,17 +2,10 @@ import { useEffect, useState } from 'react';
 
 function AddVoter({addVoterCallback, votersFromApp}) {
     const [address, setAddress] = useState("")
-    const [voters, setVoters] = useState([])
-    
-    useEffect(()=>{
-        setVoters(votersFromApp)
-        console.log('votersFromApp: ', votersFromApp)
-        console.log('voters: ', voters)
-    }, [votersFromApp])
 
-    const showVoter = (voter)=>{
+    const showVoter = (voter, index)=>{
         return(
-            <tr>
+            <tr key={index}>
                 <td>{voter}</td>
             </tr>
         )
@@ -25,7 +18,7 @@ function AddVoter({addVoterCallback, votersFromApp}) {
                 <th scope="col">List of voter addresses</th>
                 </tr>
             </thead>
-            <tbody>{voters.map(showVoter)}</tbody>
+            <tbody>{votersFromApp.map(showVoter)}</tbody>
         </table>
         <div className="row row-dark">
             <div className="col"></div>

@@ -19,7 +19,7 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
         else
             closedStyle = 'card-header bg-danger text-light'
         return(
-            <div className="row container">
+            <div className="row container" key={proposal.proposalId}>
                 <div className='card bg-dark text-secondary mb-3 max-width: 18rem'>
                     <div className={closedStyle}>Proposal ID: {proposal.proposalId}</div>
                     <div className='card-header text-bold text-light'>Status: {proposal.status}</div>

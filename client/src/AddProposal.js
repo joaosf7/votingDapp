@@ -6,7 +6,7 @@ function AddProposal({addProposalCallback}){
     return(
         <div className="container form-group">
             <div className="row text-center">
-                <label for="TextArea">
+                <label htmlFor="TextArea">
                     <h2 className='text-light'>Submit your proposal here</h2>
                 </label>
             </div>
@@ -15,11 +15,10 @@ function AddProposal({addProposalCallback}){
                 className="form-control border border-dark  bg-secondary text-light"
                 id="TextArea"
                 rows="8"
+                defaultValue='Enter your proposal and click Submit a proposal'
                 onClick={()=>(document.getElementById('TextArea').value='')}
                 onChange={()=>setMessage(document.getElementById('TextArea').value)}
-            >
-                Enter your proposal and click 'Submit proposal'
-            </textarea>
+            ></textarea>
             </div>
             <div className="row">
                 <div className="col text-center">
