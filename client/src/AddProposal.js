@@ -7,7 +7,7 @@ function AddProposal({addProposalCallback}){
         <div className="container form-group">
             <div className="row text-center">
                 <label for="TextArea">
-                    <h2 className='text-info'>Submit your proposal here</h2>
+                    <h2 className='text-light'>Submit your proposal here</h2>
                 </label>
             </div>
             <div className="row">

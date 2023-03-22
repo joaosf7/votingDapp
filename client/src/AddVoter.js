@@ -8,7 +8,7 @@ function AddVoter({addVoterCallback, votersFromApp}) {
         setVoters(votersFromApp)
         console.log('votersFromApp: ', votersFromApp)
         console.log('voters: ', voters)
-    })
+    }, [votersFromApp])
 
     const showVoter = (voter)=>{
         return(
@@ -41,9 +41,6 @@ function AddVoter({addVoterCallback, votersFromApp}) {
                         Add a voter
                     </button>
                 </div>
-            </div>
-            <div className="col">
-                
             </div>
         </div>
     );

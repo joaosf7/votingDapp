@@ -55,18 +55,7 @@ function App() {
     catch(e){
       console.log(e)
     }
-    try {
-      let votersArray =[]
-      for(let i=0; i<await voting.methods.numberOfVoters().call(); i++){
-        const voterResult = await voting.methods.voters(i).call();
-        votersArray.push(voterResult)
-        console.log('Voter:', voterResult);
-      }
-      setVoters(votersArray)
-      console.log(voters)
-    } catch(e) {
-      console.log(e)
-    }
+    getVotersFromContract()
   }
 
   const addProposal = async (message) =>{
@@ -76,18 +65,7 @@ function App() {
     catch(e){
       console.log(e)
     }
-    try {
-      let proposalArray =[]
-      for(let i=0; i<await voting.methods.proposalsId().call(); i++){
-        const proposalResult = await voting.methods.proposals(i).call();
-        proposalArray.push(proposalResult)
-        console.log('proposalResult:', proposalResult);
-      }
-      setProposals(proposalArray)
-      console.log(proposals)
-    } catch(e) {
-      console.log(e)
-    }
+    getProposalsFromContract()
   }
 
   const voteYes = async (proposalId) =>{
@@ -123,51 +101,50 @@ function App() {
 
   return (
     <div className="container-fluid bg-dark bg-gradient text-light" data-bs-theme="dark" height='150'>
-      <div className="row text-center align-items-center">
-        <div className='col-auto'>
-          <img src="./logo.png" className="rounded float-left" height='50' width='50' alt="..." />
-        </div>
-        <div className='col'>
-          <h1 className='font-weight-bold mb-0'>VotingDapp</h1>
-        </div>
-      </div>
+
+<div className="row text-center align-items-center justify-content-center">
+  <div className='col-auto text-center'>
+    <img src="./logo.avif" className="rounded float-left" height='50' width='50' alt="..." /><h1 className='font-weight-bold mb-0'>VotingDapp</h1>
+  </div>
+</div>
+
       <div className="row">
         <div className="col">
           <DisplayProposals voteYesCallback={voteYes} voteNoCallback={voteNo} proposalsFromApp={proposals}/>
         </div>
         <div className="col">
-          <AddProposal addProposalCallback={addProposal}/>
-        </div>
-      </div>
-      <div className="row text-center">
-        <h1 className='text-info'>Frontend for owner of contract</h1>
-        <div className="row">
-          <div className="col">
-            <AddVoter addVoterCallback={addVoter} votersFromApp={voters}/>
+          <div className='row'>
+            <AddProposal addProposalCallback={addProposal}/>
           </div>
-          <div className="col container">
-            <form>
-                <div class="form-group">
-                  <label for="inputProposalToClose">Proposal to close</label>
-                  <input type="input"
-                    className="form-control"
-                    id="inputProposalToClose"
-                    placeholder="Enter ID of the proposal you want to close"
-                    onChange={(e) => setProposalIdToClose(e.target.value)}
-                    onClick={(e) => (e.target.value='')}
-                  />
-              </div>
-              <div class="form-check">
-                <input type="checkbox" className="form-check-input bg-secondary text-light" id="exampleCheck1"/>
-                <label class="form-check-label" for="exampleCheck1">I'm sure I will close this proposal</label>
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                onClick={()=>closeProposal(proposalIdToClose)}>
-                  Submit
-              </button>
-            </form>
+          <div className='row'>
+            <div className="col text-center">
+              <h2 className='text-light'>The features below are restricted to the contract owner only</h2>
+                <div className="row">
+                  <div className="col-6">
+                    <AddVoter addVoterCallback={addVoter} votersFromApp={voters}/>
+                  </div>
+                  <div className="col-4 container">
+                    <form>
+                        <div className="form-group">
+                          <label className='text-bold' for="inputProposalToClose">Proposal to close</label>
+                          <input type="input"
+                            className="form-control text-light bg-dark "
+                            id="inputProposalToClose"
+                            placeholder="Enter ID of the proposal you want to close"
+                            onChange={(e) => setProposalIdToClose(e.target.value)}
+                            onClick={(e) => (e.target.value='')}
+                          />
+                      </div>
+                      <button
+                        type="button" //type='submit'
+                        className="btn btn-primary"
+                        onClick={()=>closeProposal(proposalIdToClose)}>
+                          Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
       </div>
