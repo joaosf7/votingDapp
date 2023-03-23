@@ -10,11 +10,11 @@ contract Voting {
     string message;
     uint yesVotes;
     uint noVotes;
-    address[] voters;
     string status;
     uint proposalId;
   }
   mapping (uint => Proposal) public proposals;
+  mapping (uint => address[]) internal proposalPlayers;
   uint256 public proposalsId;
 
   constructor() {
@@ -39,8 +39,8 @@ contract Voting {
   }
 
   function checkIfAlreadyVoted(uint256 id, address voter) internal view returns (bool){
-    for(uint i =0; i<proposals[id].voters.length; i++){
-      if(voter==proposals[id].voters[i])
+    for(uint i =0; i<proposalPlayers[id].length; i++){
+      if(voter==proposalPlayers[id][i])
         return true;
     }
     return false;
@@ -64,11 +64,11 @@ contract Voting {
     if(checkVoters(msg.sender) && !checkIfAlreadyVoted(id, msg.sender) && compareStrings(proposals[id].status, "open")){
       if(compareStrings(message, "yes")){
         proposals[id].yesVotes++;
-        proposals[id].voters.push(msg.sender);
+        proposalPlayers[id].push(msg.sender);
       }
       else if(compareStrings(message, "no")){
         proposals[id].noVotes++;
-        proposals[id].voters.push(msg.sender);
+        proposalPlayers[id].push(msg.sender);
       }
     }
   }
