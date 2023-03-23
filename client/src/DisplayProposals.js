@@ -17,12 +17,12 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
             proposalImage='./open-lock.svg'
         }
         else if(proposal.yesVotes >= proposal.noVotes){
-            proposalStyle = 'card-header bg-success text-secondary'
+            proposalStyle = 'card-header  text-secondary'
             proposalMessage='Submited proposal has passed'
             proposalImage='./lock-green.svg'
         }
         else{
-            proposalStyle = 'card-header bg-danger text-light'
+            proposalStyle = 'card-header  text-light'
             proposalMessage='Submited proposal was refused'
             proposalImage='./lock-red.svg'
         }

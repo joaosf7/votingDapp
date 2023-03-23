@@ -101,8 +101,8 @@ function App() {
 //data-bs-theme="dark" bg-dark bg-gradient
   return (
     <div className="container-fluid  bg-image text-light"  height='150'>
-      <div className="row text-center justify-content-center w-25 h-80">
-          <img src="./logo-header.png" className="rounded float-left" height='100' width='300' alt="..." />
+      <div className="row text-center  w-25 mw-100 h-80 header">
+          <img src="./logo-header.png" className="rounded " height='100'  alt="..." />
       </div>
       <div className="row">
         <div className="col-4">
