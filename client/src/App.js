@@ -14,27 +14,27 @@ function App() {
   const [proposalIdToClose, setProposalIdToClose] = useState()
 
   useEffect(() => {
-    getVotersFromContract()
-    getProposalsFromContract()
+      getVotersFromContract();
+      getProposalsFromContract();
+    console.log('UseEffect from App')
   },[])
 
 
 
-  async function getProposalsFromContract() {
+  const getProposalsFromContract = async ()=>{
     let proposalsArray = []
     try {
       for(let i=0; i<await voting.methods.proposalsId().call(); i++){
         const proposalResult = await voting.methods.proposals(i).call();
         proposalsArray.push(proposalResult)
       }
-      console.log('proposalsArray: ', proposalsArray)
       } catch(e) {
         console.log(e)
       }
       setProposals(proposalsArray)
   }
 
-  async function getVotersFromContract() {
+  const getVotersFromContract = async ()=>{
     let votersArray = []
     try {
       for(let i=0; i<await voting.methods.numberOfVoters().call(); i++){
@@ -45,7 +45,6 @@ function App() {
       console.log(e)
     }
     setVoters(votersArray)
-    console.log('Current voters array: ', voters) 
   }
 
   const addVoter = async (address) => {
@@ -70,6 +69,7 @@ function App() {
 
   const voteYes = async (proposalId) =>{
     try{
+      if(proposals[proposalId].status !== 'closed')
       await voting.methods.vote(proposalId, 'yes').send({from: web3.currentProvider.selectedAddress})
       getProposalsFromContract()
     }
@@ -80,7 +80,7 @@ function App() {
 
   const voteNo = async (proposalId) =>{
     try{
-      if(proposals[proposalId].status != 'closed')
+      if(proposals[proposalId].status !== 'closed')
         await voting.methods.vote(proposalId, 'no').send({from: web3.currentProvider.selectedAddress})
       getProposalsFromContract()
     }
@@ -98,21 +98,17 @@ function App() {
       console.log(e)
     }
   }
-
+//data-bs-theme="dark" bg-dark bg-gradient
   return (
-    <div className="container-fluid bg-dark bg-gradient text-light" data-bs-theme="dark" height='150'>
-
-<div className="row text-center align-items-center justify-content-center">
-  <div className='col-auto text-center'>
-    <img src="./logo.avif" className="rounded float-left" height='50' width='50' alt="..." /><h1 className='font-weight-bold mb-0'>VotingDapp</h1>
-  </div>
-</div>
-
+    <div className="container-fluid  bg-image text-light"  height='150'>
+      <div className="row text-center justify-content-center w-25 h-80">
+          <img src="./logo-header.png" className="rounded float-left" height='100' width='300' alt="..." />
+      </div>
       <div className="row">
-        <div className="col">
+        <div className="col-4">
           <DisplayProposals voteYesCallback={voteYes} voteNoCallback={voteNo} proposalsFromApp={proposals}/>
         </div>
-        <div className="col">
+        <div className="col-8">
           <div className='row'>
             <AddProposal addProposalCallback={addProposal}/>
           </div>

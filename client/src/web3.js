@@ -5,7 +5,6 @@ let web3
 if (window.ethereum) {
     web3 = new Web3(window.ethereum)
    try {
-       console.log('Detected window.ethereum')
        // Request account access
         window.ethereum.request({ method: 'eth_requestAccounts'})
    } catch(e) {

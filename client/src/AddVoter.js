@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function AddVoter({addVoterCallback, votersFromApp}) {
     const [address, setAddress] = useState("")
@@ -6,15 +6,18 @@ function AddVoter({addVoterCallback, votersFromApp}) {
     const showVoter = (voter, index)=>{
         return(
             <tr key={index}>
+                <th scope="row">{index}</th>
                 <td>{voter}</td>
+                {console.log('showVoter from AdVoter')}
             </tr>
         )
     }
     return (
       <div className="container">
-        <table className="table table-striped table-dark">
+        <table className="table table-striped table-dark table-hover">
             <thead>
                 <tr>
+                <th scope="col">#</th>
                 <th scope="col">List of voter addresses</th>
                 </tr>
             </thead>

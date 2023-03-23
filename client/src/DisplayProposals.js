@@ -5,24 +5,39 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
 
     useEffect(()=>{
         setProposals(proposalsFromApp)
-        console.log('proposalsFromApp: ', proposalsFromApp)
+        console.log('UseEffect from DisplayProposals')
     },[proposalsFromApp])
 
     const showProposal = (proposal)=>{
-        let closedStyle
+        let proposalStyle
+        let proposalMessage='open'
+        let proposalImage=''
         if(proposal.status == 'open'){
-            closedStyle = 'card-header'
-            console.log("ESTOU AQUI")
+            proposalStyle = 'card-header text-light'
+            proposalImage='./open-lock.svg'
         }
-        else if(proposal.yesVotes >= proposal.noVotes)
-            closedStyle = 'card-header bg-success text-light'
-        else
-            closedStyle = 'card-header bg-danger text-light'
+        else if(proposal.yesVotes >= proposal.noVotes){
+            proposalStyle = 'card-header bg-success text-secondary'
+            proposalMessage='Submited proposal has passed'
+            proposalImage='./lock-green.svg'
+        }
+        else{
+            proposalStyle = 'card-header bg-danger text-light'
+            proposalMessage='Submited proposal was refused'
+            proposalImage='./lock-red.svg'
+        }
         return(
             <div className="row container" key={proposal.proposalId}>
                 <div className='card bg-dark text-secondary mb-3 max-width: 18rem'>
-                    <div className={closedStyle}>Proposal ID: {proposal.proposalId}</div>
-                    <div className='card-header text-bold text-light'>Status: {proposal.status}</div>
+                    <div className={proposalStyle}>Proposal ID: {proposal.proposalId}</div>
+                    <div className='card-header text-bold text-light'>
+                        <div className="col">
+                            Status: {proposalMessage}
+                        </div>
+                        <div className="col">
+                            <img src={proposalImage} className="rounded float-left"/>
+                        </div>
+                    </div>
                     <div className="card-body">
                         <h5 className="card-title text-light">{proposal.message}</h5>
                         <div className="row text-light">
@@ -37,17 +52,19 @@ function DisplayProposals({voteYesCallback, voteNoCallback, proposalsFromApp}){
                             <div className="col">
                                 <button
                                     type="button"
-                                    className="btn btn-success btn-block"
-                                    onClick={()=>voteYesCallback(proposal.proposalId)}>
-                                        Aprove this proposal
+                                    className="btn btn-dark btn-block"
+                                    onClick={()=>voteYesCallback(proposal.proposalId)}
+                                >
+                                    <img src='./thumbs-up.png' width={60} height={60} className="rounded float-left"/>
                                 </button>
                             </div>
                             <div className="col">
                                 <button
                                     type="button"
-                                    className="btn btn-danger btn-block"
-                                    onClick={()=>voteNoCallback(proposal.proposalId)}>
-                                        Reject this proposal  
+                                    className="btn btn-dark btn-block"
+                                    onClick={()=>voteNoCallback(proposal.proposalId)}
+                                >
+                                        <img src='./thumbs-down.png' width={60} height={60} className="rounded float-left"/> 
                                 </button>
                             </div>
                         </div>
